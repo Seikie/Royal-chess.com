@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Royal Chess - Professional browser chess"
+    >
+
+    <title>Royal Chess</title>
+
+    <link rel="stylesheet" href="chess.css">
+
+</head>
+
+
+<body>
+
+    <div class="app">
+
+        <!-- TOP BAR -->
+
+        <header class="topbar">
+
+            <div class="brand">
+
+                <div class="brand-icon">
+                    ♔
+                </div>
+
+                <div>
+
+                    <div class="brand-name">
+                        ROYAL CHESS
+                    </div>
+
+                    <div class="brand-subtitle">
+                        BROWSER CHESS
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="top-status">
+
+                <div class="status-dot"></div>
+
+                <span>
+                    LOCAL MATCH
+                </span>
+
+            </div>
+
+        </header>
+
+
+
+        <!-- MAIN -->
+
+        <main class="main-container">
+
+
+            <!-- LEFT SIDEBAR -->
+
+            <aside class="sidebar">
+
+                <div class="sidebar-section">
+
+                    <div class="section-label">
+                        GAME MODE
+                    </div>
+
+
+                    <button
+                        class="mode-button active"
+                        id="localModeButton"
+                    >
+
+                        <span class="mode-icon">
+                            ♙♙
+                        </span>
+
+                        <span>
+
+                            <strong>
+                                Local 1v1
+                            </strong>
+
+                            <small>
+                                Two players
+                            </small>
+
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+
+                <!-- TIME CONTROL -->
+
+                <div class="sidebar-section">
+
+                    <div class="section-label">
+                        TIME CONTROL
+                    </div>
+
+
+                    <div class="time-grid">
+
+                        <button
+                            class="time-button"
+                            data-time="60"
+                        >
+                            1 + 0
+                        </button>
+
+
+                        <button
+                            class="time-button active"
+                            data-time="300"
+                        >
+                            5 + 0
+                        </button>
+
+
+                        <button
+                            class="time-button"
+                            data-time="600"
+                        >
+                            10 + 0
+                        </button>
+
+
+                        <button
+                            class="time-button"
+                            data-time="900"
+                        >
+                            15 + 0
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MATCH CONTROLS -->
+
+                <div class="sidebar-section">
+
+                    <div class="section-label">
+                        MATCH
+                    </div>
+
+
+                    <button
+                        class="control-button primary"
+                        id="newGameButton"
+                    >
+                        + New Game
+                    </button>
+
+
+                    <button
+                        class="control-button"
+                        id="resignButton"
+                    >
+                        Resign
+                    </button>
+
+
+                    <button
+                        class="control-button"
+                        id="drawButton"
+                    >
+                        Offer Draw
+                    </button>
+
+                </div>
+
+
+                <div class="sidebar-footer">
+
+                    <span>
+                        ROYAL CHESS
+                    </span>
+
+                    <span>
+                        v1.0
+                    </span>
+
+                </div>
+
+            </aside>
+
+
+
+            <!-- CHESS GAME -->
+
+            <section class="game-area">
+
+
+                <!-- GAME HEADER -->
+
+                <div class="game-header">
+
+                    <div>
+
+                        <div
+                            class="game-title"
+                            id="gameTitle"
+                        >
+                            Local Match
+                        </div>
+
+
+                        <div
+                            class="game-status"
+                            id="gameStatus"
+                        >
+                            White to move
+                        </div>
+
+                    </div>
+
+
+                    <div class="move-counter">
+
+                        <span>
+                            MOVE
+                        </span>
+
+                        <strong id="moveNumber">
+                            1
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- BLACK PLAYER -->
+
+                <div class="player-bar">
+
+                    <div class="player-info">
+
+                        <div class="player-avatar black">
+                            ♟
+                        </div>
+
+
+                        <div>
+
+                            <div class="player-name">
+                                Black
+                            </div>
+
+                            <div
+                                class="player-state"
+                                id="blackState"
+                            >
+                                Waiting
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="captured-pieces"
+                        id="blackCaptured"
+                    ></div>
+
+
+                    <div
+                        class="clock black-clock"
+                        id="blackClock"
+                    >
+                        05:00
+                    </div>
+
+                </div>
+
+
+
+                <!-- BOARD -->
+
+                <div class="board-wrapper">
+
+                    <div class="board-coordinates files">
+
+                        <span>a</span>
+                        <span>b</span>
+                        <span>c</span>
+                        <span>d</span>
+                        <span>e</span>
+                        <span>f</span>
+                        <span>g</span>
+                        <span>h</span>
+
+                    </div>
+
+
+                    <div
+                        class="chess-board"
+                        id="chessBoard"
+                    ></div>
+
+
+                    <div class="board-coordinates ranks">
+
+                        <span>8</span>
+                        <span>7</span>
+                        <span>6</span>
+                        <span>5</span>
+                        <span>4</span>
+                        <span>3</span>
+                        <span>2</span>
+                        <span>1</span>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- WHITE PLAYER -->
+
+                <div class="player-bar">
+
+                    <div class="player-info">
+
+                        <div class="player-avatar white">
+                            ♙
+                        </div>
+
+
+                        <div>
+
+                            <div class="player-name">
+                                White
+                            </div>
+
+                            <div
+                                class="player-state"
+                                id="whiteState"
+                            >
+                                Your turn
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div
+                        class="captured-pieces"
+                        id="whiteCaptured"
+                    ></div>
+
+
+                    <div
+                        class="clock white-clock"
+                        id="whiteClock"
+                    >
+                        05:00
+                    </div>
+
+                </div>
+
+
+
+                <!-- MOBILE BUTTONS -->
+
+                <div class="mobile-controls">
+
+                    <button id="mobileNewGame">
+                        New Game
+                    </button>
+
+                    <button id="mobileResign">
+                        Resign
+                    </button>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- RIGHT PANEL -->
+
+            <aside class="right-panel">
+
+
+                <div class="panel-card">
+
+                    <div class="panel-title">
+                        GAME INFORMATION
+                    </div>
+
+
+                    <div class="stat-row">
+
+                        <span>
+                            Mode
+                        </span>
+
+                        <strong id="modeInfo">
+                            Local 1v1
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-row">
+
+                        <span>
+                            Time
+                        </span>
+
+                        <strong id="timeInfo">
+                            5 + 0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="stat-row">
+
+                        <span>
+                            Turn
+                        </span>
+
+                        <strong id="turnInfo">
+                            White
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MOVE HISTORY -->
+
+                <div class="panel-card move-panel">
+
+                    <div class="panel-title">
+                        MOVE HISTORY
+                    </div>
+
+
+                    <div
+                        class="move-list"
+                        id="moveList"
+                    >
+
+                        <div class="empty-moves">
+                            No moves yet
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- MATERIAL -->
+
+                <div class="panel-card">
+
+                    <div class="panel-title">
+                        MATERIAL
+                    </div>
+
+
+                    <div class="material-row">
+
+                        <span>
+                            White
+                        </span>
+
+                        <strong id="whiteMaterial">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="material-row">
+
+                        <span>
+                            Black
+                        </span>
+
+                        <strong id="blackMaterial">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+        </main>
+
+    </div>
+
+
+
+    <!-- PROMOTION MODAL -->
+
+    <div
+        class="modal-overlay hidden"
+        id="promotionModal"
+    >
+
+        <div class="promotion-modal">
+
+            <div class="modal-title">
+                PROMOTE PAWN
+            </div>
+
+
+            <div class="modal-subtitle">
+                Choose a piece
+            </div>
+
+
+            <div class="promotion-options">
+
+                <button data-piece="q">
+                    ♛
+                    <span>Queen</span>
+                </button>
+
+
+                <button data-piece="r">
+                    ♜
+                    <span>Rook</span>
+                </button>
+
+
+                <button data-piece="b">
+                    ♝
+                    <span>Bishop</span>
+                </button>
+
+
+                <button data-piece="n">
+                    ♞
+                    <span>Knight</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- GAME OVER MODAL -->
+
+    <div
+        class="modal-overlay hidden"
+        id="gameOverModal"
+    >
+
+        <div class="game-over-modal">
+
+            <div class="game-over-icon">
+                ♔
+            </div>
+
+
+            <div
+                class="game-over-title"
+                id="gameOverTitle"
+            >
+                Checkmate
+            </div>
+
+
+            <div
+                class="game-over-message"
+                id="gameOverMessage"
+            >
+                White wins!
+            </div>
+
+
+            <button
+                class="control-button primary modal-new-game"
+                id="modalNewGame"
+            >
+                Play Again
+            </button>
+
+        </div>
+
+    </div>
+
+
+
+    <script src="chess.js"></script>
+
+</body>
+
+</html>
